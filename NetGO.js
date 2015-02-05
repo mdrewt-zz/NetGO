@@ -1,32 +1,40 @@
 if (Meteor.isClient) {
-  $('document').ready(function() {
-    canvas = document.getElementById("canvas");
-    context = canvas.getContext("2d");
+  
+  var drawLine = function(x1, y1, x2, y2) {
+    context.beginPath();
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.stroke();
+  };
+  
+  var drawCircle = function(x, y, radius) {
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2*Math.PI);
+    context.closePath();
+    context.fill();
+    context.stroke();
+  }
+  
+  var drawBoard = function() {
     context.lineWidth = 2;
     context.fillStyle = "black";
     
     for (var i=0; i<19; i++) {
-      context.beginPath();
-      context.moveTo(i*40+20, 20);
-      context.lineTo(i*40+20, 740);
-      context.stroke();
-      
-      context.beginPath();
-      context.moveTo(20, i*40+20);
-      context.lineTo(740, i*40+20);
-      context.stroke();
+      drawLine(i*40+20, 20, i*40+20, 740);
+      drawLine(20, i*40+20, 740, i*40+20);
     }
     
     for (var i=0; i<9; i++) {
       var row = Math.floor(i/3);
       var column = i%3;
-      
-      context.beginPath();
-      context.arc(row*240+140, column*240+140, 4, 0, 2*Math.PI);
-      context.closePath();
-      context.fill();
-      context.stroke();
+      drawCircle(row*240+140, column*240+140, 4);
     }
+  };
+  
+  var createBoard = function() {
+    canvas = document.getElementById("canvas");
+    context = canvas.getContext("2d");
+    drawBoard();
     
     canvas.addEventListener("mousedown", function(e) {
       var rect = canvas.getBoundingClientRect();
@@ -34,7 +42,10 @@ if (Meteor.isClient) {
       var y = Math.floor((e.pageY - rect.top)/40);
       console.log("You clicked " + x + ", " + y);
     });
-    
+  };
+  
+  $('document').ready(function() {
+    createBoard();
   });
  
 }
