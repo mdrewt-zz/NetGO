@@ -19,7 +19,7 @@ if (Meteor.isClient) {
     
     for (var i=0; i<9; i++) {
       var row = Math.floor(i/3);
-      var column = i%3
+      var column = i%3;
       
       context.beginPath();
       context.arc(row*240+140, column*240+140, 4, 0, 2*Math.PI);
@@ -27,6 +27,13 @@ if (Meteor.isClient) {
       context.fill();
       context.stroke();
     }
+    
+    canvas.addEventListener("mousedown", function(e) {
+      var rect = canvas.getBoundingClientRect();
+      var x = Math.floor((e.pageX - rect.left)/40);
+      var y = Math.floor((e.pageY - rect.top)/40);
+      console.log("You clicked " + x + ", " + y);
+    });
     
   });
  
