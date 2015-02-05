@@ -36,6 +36,16 @@ if (Meteor.isClient) {
     drawCircle(x*40+20, y*40+20, 18);
   }
   
+  kifu = [];
+  
+  var turn = function() {
+    if (kifu.length % 2 == 0) {
+      return "black";
+    } else {
+      return "white";
+    }
+  };
+  
   var createBoard = function() {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
@@ -45,7 +55,7 @@ if (Meteor.isClient) {
       var rect = canvas.getBoundingClientRect();
       var x = Math.floor((e.pageX - rect.left)/40);
       var y = Math.floor((e.pageY - rect.top)/40);
-      placeStone(x, y, "white")
+      placeStone(x, y, turn())
       console.log("You clicked " + x + ", " + y);
     });
   };
@@ -61,3 +71,12 @@ if (Meteor.isServer) {
 
   });
 }
+
+
+// TODO
+// Record each move.
+// Determine if a move is black or white
+// Determine if a move is legal
+//   - Space is empty
+//   - takes care of captures
+//   - The group it belongs to has at least one liberty
