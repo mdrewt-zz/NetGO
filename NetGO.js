@@ -34,9 +34,8 @@ if (Meteor.isClient) {
   var placeStone = function(x, y, color) {
     context.fillStyle = color;
     drawCircle(x*40+20, y*40+20, 18);
+    kifu.push({row: x, column: y, player: color})
   }
-  
-  kifu = [];
   
   var turn = function() {
     if (kifu.length % 2 == 0) {
@@ -46,10 +45,18 @@ if (Meteor.isClient) {
     }
   };
   
+  var updateBoard = function() {
+    for (var i=0; i<kifu.length; i++) {
+      placeStone(kifu[i].row, kifu[i].column, kifu[i].player);
+    }
+  };
+  
   var createBoard = function() {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
+    kifu = [];
     drawBoard();
+    updateBoard();
     
     canvas.addEventListener("mousedown", function(e) {
       var rect = canvas.getBoundingClientRect();
