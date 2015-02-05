@@ -31,6 +31,11 @@ if (Meteor.isClient) {
     }
   };
   
+  var placeStone = function(x, y, color) {
+    context.fillStyle = color;
+    drawCircle(x*40+20, y*40+20, 18);
+  }
+  
   var createBoard = function() {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
@@ -40,6 +45,7 @@ if (Meteor.isClient) {
       var rect = canvas.getBoundingClientRect();
       var x = Math.floor((e.pageX - rect.left)/40);
       var y = Math.floor((e.pageY - rect.top)/40);
+      placeStone(x, y, "white")
       console.log("You clicked " + x + ", " + y);
     });
   };
