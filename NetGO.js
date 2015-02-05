@@ -29,12 +29,6 @@ if (Meteor.isClient) {
     }
     
   });
-  
-  Template.boardView.helpers({
-    draw: function() {
-      
-    }
-  });
  
 }
 
