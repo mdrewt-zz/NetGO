@@ -1,23 +1,22 @@
-var turn = function() {
-  if (kifu.length % 2 == 0) {
-    return "black";
-  } else {
-    return "white";
-  }
-};
-
 $('document').ready(function() {
-  goban = new Board(document.getElementById("canvas"));
-  kifu = [];
+  var goban = new Board(document.getElementById("canvas"));
   goban.renderBoard();
   
   goban.renderer.canvas.addEventListener("mousedown", function(e) {
     var rect = this.getBoundingClientRect();
-    var x = Math.floor((e.pageX - rect.left)/40);
-    var y = Math.floor((e.pageY - rect.top)/40);
+    var x = Math.floor((e.clientX - rect.left)/40);
+    var y = Math.floor((e.clientY - rect.top)/40);
     
-    goban.drawStone(x, y, turn());
-    kifu.push({row: x, column: y, player: turn()});
+    Meteor.call('addMove', {row: x, column: y}, function(error, result) {
+      console.log("The error is " + error);
+    });
   });
   
+  Meteor.call('loadGame', function(error, result) {
+    console.log("error: " + error);
+    console.log("result: " + JSON.stringify(result));
+    
+    var game = result;
+    goban.drawPosition(game.kifu)
+  });
 });
