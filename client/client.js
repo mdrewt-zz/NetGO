@@ -1,3 +1,7 @@
+Meteor.subscribe("games", function(result){
+  console.log(result);
+});
+
 Games = new Meteor.Collection("games")
 game = Games.find();
 
@@ -10,12 +14,12 @@ Template.boardView.helpers({
 Template.boardView.events({
   'click .empty': function() {
     var tempGame = game.fetch()[0];
-    console.log(tempGame);
+    // console.log(tempGame);
     tempGame.position[this.row][this.column].status = "black";
-    console.log(tempGame);
+    // console.log(tempGame);
     // Meteor.call('addMove', tempGame)
     Games.update(tempGame._id, {$set: {position: tempGame.position}});
-    console.log(Games.find().fetch()[0]);
+    // console.log(Games.find().fetch()[0]);
   }
 });
 
@@ -44,10 +48,8 @@ $('document').ready(function() {
   //   console.log("result: " + JSON.stringify(result));
     
   //   var game = result;
-  //   goban.drawPosition(game.kifu)
-  // });
-  
-  Meteor.subscribe("games", function(result){
-    console.log(result);
+  Tracker.autorun(function() {
+    goban.drawPosition(game);
   });
+  // });
 });
