@@ -8,7 +8,9 @@ $('document').ready(function() {
     var y = Math.floor((e.clientY - rect.top)/40);
     
     Meteor.call('addMove', {row: x, column: y}, function(error, result) {
-      console.log("The error is " + error);
+      if (error) {
+        console.log("The error is " + error);
+      }
     });
   });
   

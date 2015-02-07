@@ -9,7 +9,7 @@ Meteor.startup(function () {
 });
 
 Meteor.publish("games", function() {
-  return Games.find().fetch();
+  return Games.find();
 });
 
 Meteor.methods({
