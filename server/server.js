@@ -1,9 +1,15 @@
 var Games = new Meteor.Collection("games");
 
 Meteor.startup(function () {
-  // Games.remove({});
+  Games.remove({});
   if (Games.find({}).count() == 0) {
-    var game = {kifu: []};
+    var game = {position: []};
+    for (var i=0; i<19; i++) {
+      game[i] = [];
+      for (var j=0; j<19; j++) {
+        game.position[i][j] = "empty";
+      }
+    }
     Games.insert(game);
   }
 });

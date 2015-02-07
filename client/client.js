@@ -1,3 +1,10 @@
+Games = new Meteor.Collection("games")
+Template.boardView.helpers({
+  'row': function() {
+    return
+  }
+});
+
 $('document').ready(function() {
   var goban = new Board(document.getElementById("canvas"));
   goban.renderBoard();
