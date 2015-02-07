@@ -7,7 +7,7 @@ Meteor.startup(function () {
     for (var i=0; i<19; i++) {
       game[i] = [];
       for (var j=0; j<19; j++) {
-        game.position[i][j] = "empty";
+        game.position[i][j] = {row: i, column: j, status: "empty"};
       }
     }
     Games.insert(game);
