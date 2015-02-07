@@ -22,14 +22,14 @@ Meteor.methods({
   loadGame: function() {
     return Games.find().fetch()[0];
   },
-  addMove: function(move) {
-    var g = Games.find().fetch()[0];
-    if (g.kifu.length % 2 == 1) {
-      move.player = "white";
-    } else {
-      move.player = "black";
-    }
-    g.kifu.push(move);
-    Games.update({_id: g._id}, {$set: {kifu: g.kifu}})
+  addMove: function(game) {
+    // var g = Games.find().fetch()[0];
+    // if (g.kifu.length % 2 == 1) {
+    //   move.player = "white";
+    // } else {
+    //   move.player = "black";
+    // }
+    // g.kifu.push(move);
+    Games.update(game._id, {$set: game});
   }
 });
