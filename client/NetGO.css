@@ -1,6 +1,38 @@
 /* CSS declarations go here */
+#board {
+  position: absolute;
+  height: 760px;
+  width: 760px;
+  margin: 0px;
+  padding: 0px;
+  overflow: none;
+}
+
+.tile {
+  position: relative;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.empty {
+  /*background-color: #424242;*/
+}
+
+.white {
+  background-color: white;
+}
+
+.black {
+  background-color: black;
+}
 
 #canvas {
+  margin: 0px;
+  padding: 0px;
   background-color: #B97;
 }
 

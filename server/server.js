@@ -5,7 +5,7 @@ Meteor.startup(function () {
   if (Games.find({}).count() == 0) {
     var game = {position: []};
     for (var i=0; i<19; i++) {
-      game[i] = [];
+      game.position[i] = [];
       for (var j=0; j<19; j++) {
         game.position[i][j] = {row: i, column: j, status: "empty"};
       }

@@ -7,10 +7,12 @@
 </body>
 
 <template name="boardView">
-  <div class="board">
-    {{#each row}}
-      {{#each this}}
-        <div class="tile {{status}}"></div>
+  <div id="board">
+    {{#each game}}
+      {{#each position}}
+        {{#each this}}
+          <div class="tile {{status}}"></div>
+        {{/each}}
       {{/each}}
     {{/each}}
   </div>
