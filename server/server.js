@@ -8,6 +8,10 @@ Meteor.startup(function () {
   }
 });
 
+Meteor.publish("games", function() {
+  return Games.find().fetch();
+});
+
 Meteor.methods({
   loadGame: function() {
     return Games.find().fetch()[0];

@@ -19,4 +19,8 @@ $('document').ready(function() {
     var game = result;
     goban.drawPosition(game.kifu)
   });
+  
+  Meteor.subscribe("games", function(result){
+    console.log(result);
+  });
 });
