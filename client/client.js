@@ -35,8 +35,9 @@ $('document').ready(function() {
     if (tempGame.position[x][y].status == "empty") {
       tempGame.position[x][y].status = turn(tempGame.moveList);
       tempGame.moveList.push(tempGame.position[x][y]);
-      console.log(tempGame);
       Games.update(tempGame._id, {$set: {position: tempGame.position, moveList: tempGame.moveList}});
+    } else {
+      console.log("You can't go there.")
     }
     
   });
