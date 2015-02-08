@@ -21,8 +21,12 @@ Template.boardView.helpers({
 //   }
 // });
 
-var turn = function() {
-  
+var turn = function(moveList) {
+  if (moveList.length % 2 == 0 ) {
+    return "black";
+  } else {
+    return "white";
+  }
 };
 
 $('document').ready(function() {
@@ -35,8 +39,10 @@ $('document').ready(function() {
     var y = Math.floor((e.clientY - rect.top)/40);
     
     var tempGame = game.fetch()[0];
-    tempGame.position[x][y].status = "black";
-    Games.update(tempGame._id, {$set: {position: tempGame.position}});
+    tempGame.position[x][y].status = turn(tempGame.moveList);
+    tempGame.moveList.push(tempGame.position[x][y]);
+    console.log(tempGame);
+    Games.update(tempGame._id, {$set: {position: tempGame.position, moveList: tempGame.moveList}});
     
     // Meteor.call('addMove', {row: x, column: y}, function(error, result) {
     //   if (error) {
