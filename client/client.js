@@ -31,10 +31,13 @@ $('document').ready(function() {
     var y = Math.floor((e.clientY - rect.top)/40);
     
     var tempGame = game.fetch()[0];
-    tempGame.position[x][y].status = turn(tempGame.moveList);
-    tempGame.moveList.push(tempGame.position[x][y]);
-    console.log(tempGame);
-    Games.update(tempGame._id, {$set: {position: tempGame.position, moveList: tempGame.moveList}});
+    
+    if (tempGame.position[x][y].status == "empty") {
+      tempGame.position[x][y].status = turn(tempGame.moveList);
+      tempGame.moveList.push(tempGame.position[x][y]);
+      console.log(tempGame);
+      Games.update(tempGame._id, {$set: {position: tempGame.position, moveList: tempGame.moveList}});
+    }
     
   });
 });
