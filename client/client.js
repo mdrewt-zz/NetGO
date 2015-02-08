@@ -32,7 +32,7 @@ $('document').ready(function() {
     var y = Math.floor((e.clientY - rect.top)/40);
     
     var tempGame = game.fetch()[0];
-    console.log(rules.capture({row: x, column: y, status: turn(tempGame.moveList)}, tempGame.position));
+    // console.log(rules.capture({row: x, column: y, status: turn(tempGame.moveList)}, tempGame.position));
     
     if (tempGame.position[x][y].status == "empty") {
       tempGame.position[x][y].status = turn(tempGame.moveList);
