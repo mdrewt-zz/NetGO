@@ -17,19 +17,3 @@ Meteor.startup(function () {
 Meteor.publish("games", function() {
   return Games.find();
 });
-
-// Meteor.methods({
-//   loadGame: function() {
-//     return Games.find().fetch()[0];
-//   },
-//   addMove: function(game) {
-//     // var g = Games.find().fetch()[0];
-//     // if (g.kifu.length % 2 == 1) {
-//     //   move.player = "white";
-//     // } else {
-//     //   move.player = "black";
-//     // }
-//     // g.kifu.push(move);
-//     Games.update(game._id, {$set: game});
-//   }
-// });
