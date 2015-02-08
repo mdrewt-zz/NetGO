@@ -18,6 +18,7 @@ var turn = function(moveList) {
 };
 
 $('document').ready(function() {
+  var rules = new RuleSet();
   var goban = new Board(document.getElementById("canvas"));
   goban.renderBoard();
   
@@ -31,6 +32,7 @@ $('document').ready(function() {
     var y = Math.floor((e.clientY - rect.top)/40);
     
     var tempGame = game.fetch()[0];
+    console.log(rules.capture({row: x, column: y}));
     
     if (tempGame.position[x][y].status == "empty") {
       tempGame.position[x][y].status = turn(tempGame.moveList);
