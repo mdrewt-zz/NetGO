@@ -1,6 +1,7 @@
 /* CSS declarations go here */
-
 #canvas {
+  margin: 0px;
+  padding: 0px;
   background-color: #B97;
 }
 
