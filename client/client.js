@@ -36,7 +36,24 @@ $('document').ready(function() {
     // console.log(rules.capture({row: x, column: y, status: turn(tempGame.moveList)}, tempGame.position));
     
     if (tempGame.position[x][y].status == "empty") {
+      var turn = tempGame.moveList.length;
       tempGame.position[x][y].status = turn(tempGame.moveList);
+      tempGame.position[x][y].group = turn;
+      
+      var adjacentSpaces = rules.getAdjacent(tempGame.position[x][y]);
+      for(var i=0; i<adjacentSpaces.length; i++) {
+        if(tempGame.position[adjacentSpaces[i].row][adjacentSpaces[i].column].status ==  tempGame.position[x][y].status) {
+          var oldGroup = tempGame.position[adjacentSpaces[i].row][adjacentSpaces[i].column].group;
+          var groupSpaces = tempGame.groups[oldGroup];
+          tempGame.groups[turn] = [];
+          for(var j=0; j<groupSpaces.length; j++) {
+            tempGame[groupSpaces[j].row][groupSpaces[j].column].group = tempGame.position[x][y].group;
+            tempGame.groups[turn].push(tempGame[groupSpaces[j].row][groupSpaces[j].column]);
+          }
+          delete tempGame.groups[oldGroup]
+        }
+      }
+      
       tempGame.moveList.push(tempGame.position[x][y]);
       Games.update(tempGame._id, {$set: {position: tempGame.position, moveList: tempGame.moveList}});
     } else {
