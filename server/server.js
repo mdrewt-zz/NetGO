@@ -3,7 +3,7 @@ var Games = new Meteor.Collection("games");
 Meteor.startup(function () {
   Games.remove({});
   if (Games.find({}).count() == 0) {
-    var game = {position: [], moveList: [], groups: []};
+    var game = {position: [], moveList: [], groups: {}};
     for (var i=0; i<19; i++) {
       game.position[i] = [];
       for (var j=0; j<19; j++) {
