@@ -1,6 +1,7 @@
 Meteor.subscribe("games", function(){});
 
-Games = new Meteor.Collection("games")
+rules = new RuleSet();
+Games = new Meteor.Collection("games");
 game = Games.find();
 
 Template.boardView.helpers({
