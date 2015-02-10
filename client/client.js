@@ -40,12 +40,15 @@ $('document').ready(function() {
       tempGame.position[x][y].status = turn(tempGame.moveList);
       tempGame.position[x][y].group = turn;
       
+      tempGame.groups[turn] = [];
+      tempGame.groups[turn].push(tempGame.position[x][y])
+      
       var adjacentSpaces = rules.getAdjacent(tempGame.position[x][y]);
       for(var i=0; i<adjacentSpaces.length; i++) {
         if(tempGame.position[adjacentSpaces[i].row][adjacentSpaces[i].column].status ==  tempGame.position[x][y].status) {
           var oldGroup = tempGame.position[adjacentSpaces[i].row][adjacentSpaces[i].column].group;
           var groupSpaces = tempGame.groups[oldGroup];
-          tempGame.groups[turn] = [];
+
           for(var j=0; j<groupSpaces.length; j++) {
             tempGame[groupSpaces[j].row][groupSpaces[j].column].group = tempGame.position[x][y].group;
             tempGame.groups[turn].push(tempGame[groupSpaces[j].row][groupSpaces[j].column]);
