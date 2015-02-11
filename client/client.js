@@ -36,31 +36,43 @@ $('document').ready(function() {
     // console.log(rules.capture({row: x, column: y, status: turn(tempGame.moveList)}, tempGame.position));
     
     if (tempGame.position[x][y].status == "empty") {
-      var turn = tempGame.moveList.length;
+      var turnNum = tempGame.moveList.length;
       tempGame.position[x][y].status = turn(tempGame.moveList);
-      tempGame.position[x][y].group = turn;
+      tempGame.position[x][y].group = turnNum;
       
-      tempGame.groups[turn] = [];
-      tempGame.groups[turn].push(tempGame.position[x][y])
+      tempGame.groups[turnNum] = [];
+      tempGame.groups[turnNum].push(tempGame.position[x][y]);
       
       var adjacentSpaces = rules.getAdjacent(tempGame.position[x][y]);
       for(var i=0; i<adjacentSpaces.length; i++) {
         if(tempGame.position[adjacentSpaces[i].row][adjacentSpaces[i].column].status ==  tempGame.position[x][y].status) {
           var oldGroup = tempGame.position[adjacentSpaces[i].row][adjacentSpaces[i].column].group;
           var groupSpaces = tempGame.groups[oldGroup];
+          
+          // console.log("Groups: ");
+          // console.log(tempGame.groups);
+          // console.log("\noldGroup: ");
+          // console.log(oldGroup);
+          // console.log("\ngroupSpaces: ")
+          // console.log(groupSpaces)
+          
+          // console.log()
 
           for(var j=0; j<groupSpaces.length; j++) {
-            tempGame[groupSpaces[j].row][groupSpaces[j].column].group = tempGame.position[x][y].group;
-            tempGame.groups[turn].push(tempGame[groupSpaces[j].row][groupSpaces[j].column]);
+            // console.log(j)
+            // console.log(groupSpaces[j].row)
+            // console.log(groupSpaces[j].column)
+            tempGame.position[groupSpaces[j].row][groupSpaces[j].column].group = tempGame.position[x][y].group;
+            tempGame.groups[turnNum].push(tempGame.position[groupSpaces[j].row][groupSpaces[j].column]);
           }
-          delete tempGame.groups[oldGroup]
+          delete tempGame.groups[oldGroup];
         }
       }
       
       tempGame.moveList.push(tempGame.position[x][y]);
-      Games.update(tempGame._id, {$set: {position: tempGame.position, moveList: tempGame.moveList}});
+      Games.update(tempGame._id, {$set: {position: tempGame.position, moveList: tempGame.moveList, groups: tempGame.groups}});
     } else {
-      console.log("You can't go there.")
+      console.log("You can't go there.");
     }
     
   });
