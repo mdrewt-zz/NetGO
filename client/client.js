@@ -6,12 +6,6 @@ rules = new RuleSet();
 Games = new Meteor.Collection("games");
 game = Games.find();
 
-// Template.boardView.helpers({
-//   'game': function() {
-//     return Games.find();
-//   }
-// });
-
 // Define function to determine if it's black's turn or white's. Possibly simplify this to a (!)toggle and store as data?
 var turn = function(moveList) {
   if (moveList.length % 2 == 0 ) {
@@ -22,7 +16,6 @@ var turn = function(moveList) {
 };
 
 $('document').ready(function() {
-  // var rules = new RuleSet();
   
   // Defining the board model that's going to be doing most of the work. (Move all the view stuff into the renderer object? Move definition above document.ready() then load in the canvas?)
   var goban = new Board(document.getElementById("canvas"));
@@ -68,20 +61,8 @@ $('document').ready(function() {
           var oldGroup = tempGame.position[adjacentSpaces[i].row][adjacentSpaces[i].column].group;
           // And look up all the other stones in that group
           var groupSpaces = tempGame.groups[oldGroup];
-          
-          // console.log("Groups: ");
-          // console.log(tempGame.groups);
-          // console.log("\noldGroup: ");
-          // console.log(oldGroup);
-          // console.log("\ngroupSpaces: ")
-          // console.log(groupSpaces)
-          
-          // console.log()
 
           for(var j=0; j<groupSpaces.length; j++) {
-            // console.log(j)
-            // console.log(groupSpaces[j].row)
-            // console.log(groupSpaces[j].column)
             // Then for every stone in that group, change (and add) them to the new group
             tempGame.position[groupSpaces[j].row][groupSpaces[j].column].group = tempGame.position[x][y].group;
             tempGame.groups[turnNum].push(tempGame.position[groupSpaces[j].row][groupSpaces[j].column]);
