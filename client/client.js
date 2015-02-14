@@ -42,11 +42,11 @@ $('document').ready(function() {
     var y = Math.floor((e.clientY - rect.top)/40);
     
     // Creating a temporary game object to manipulate
-    var goban = game.fetch()[0];
+    // var goban = game.fetch()[0];
     // console.log(rules.capture({row: x, column: y, status: turn(goban.moveList)}, goban.position));
     
     // Make sure the space is empty (moves on occupied spaces are not allowed.)
-    if (goban.position[x][y].status == "empty") {
+    if (goban.isEmpty(x, y)) {
       // Store the turn number so you only have to do a lookup once.
       var turnNum = goban.moveList.length;
       // Determining whether the stone is white or black. (change turn() to use turnNum?)
