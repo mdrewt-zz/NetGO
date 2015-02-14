@@ -18,7 +18,7 @@ var turn = function(moveList) {
 $('document').ready(function() {
   
   // Defining the board model that's going to be doing most of the work. (Move all the view stuff into the renderer object? Move definition above document.ready() then load in the canvas?)
-  var goban = new Board(document.getElementById("canvas"));
+  // var goban = new Board(document.getElementById("canvas"));
   var renderer = new Renderer(document.getElementById("canvas"));
   
   // Actually draw the board onto the canvas at this point
