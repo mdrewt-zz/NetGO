@@ -15,6 +15,10 @@ var turn = function(moveList) {
   }
 };
 
+Template.info.helpers({
+  turn: function() {try {return turn(game.fetch()[0].moveList);}catch(err){}}
+});
+
 $('document').ready(function() {
   
   // Defining the board model that's going to be doing most of the work. (Move all the view stuff into the renderer object? Move definition above document.ready() then load in the canvas?)
