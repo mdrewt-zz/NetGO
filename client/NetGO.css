@@ -6,5 +6,15 @@
 }
 
 #canvas:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+#board {
+  float: left;
+  width: 760px;
+}
+
+#gameInfo {
+  float: left;
+  width: 300px;
 }

@@ -3,9 +3,18 @@
 </head>
 
 <body>
-  {{> boardView}}
+  <div id="board">
+    {{> boardView}}
+  </div>
+  <div id="gameInfo">
+    {{> info}}
+  </div>
 </body>
 
 <template name="boardView">
   <canvas id="canvas" width="760" height="760"></canvas>
+</template>
+
+<template name="info">
+  <h1>It is {{turn}}'s turn.{/h1}
 </template>
