@@ -19,17 +19,18 @@ $('document').ready(function() {
   
   // Defining the board model that's going to be doing most of the work. (Move all the view stuff into the renderer object? Move definition above document.ready() then load in the canvas?)
   var goban = new Board(document.getElementById("canvas"));
+  var renderer = new Renderer(document.getElementById("canvas"));
   
   // Actually draw the board onto the canvas at this point
-  goban.renderBoard();
+  renderer.renderBoard();
   
   // Redraws the position each time the game updates. (Will this also remove absent stones?)
   Tracker.autorun(function() {
-    goban.drawPosition(game);
+    renderer.drawPosition(game.fetch()[0]);
   });
   
   // Listening for clicks on the board.
-  goban.renderer.canvas.addEventListener("mousedown", function(e) {
+  renderer.canvas.addEventListener("mousedown", function(e) {
     // Each space is a 40px square so this calculates the coordinates of the space you clicked on
     var rect = this.getBoundingClientRect();
     var x = Math.floor((e.clientX - rect.left)/40);
