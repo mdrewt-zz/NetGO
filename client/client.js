@@ -2,9 +2,9 @@
 Meteor.subscribe("games", function(){});
 
 // Define variables. RuleSet for the getAdjacent method (move into Board object?), 
-rules = new RuleSet();
-Games = new Meteor.Collection("games");
-game = Games.find();
+var rules = new RuleSet();
+var Games = new Meteor.Collection("games");
+var game = Games.find();
 
 // Define function to determine if it's black's turn or white's. Possibly simplify this to a (!)toggle and store as data?
 var turn = function(moveList) {
