@@ -25,9 +25,6 @@ $('document').ready(function() {
   var renderer = new Renderer(document.getElementById("canvas"));
   goban = new Board();
   
-  // Actually draw the board onto the canvas at this point
-  // renderer.renderBoard();
-  
   // Redraws the position each time the game updates. (Will this also remove absent stones?)
   Tracker.autorun(function() {
     renderer.renderBoard();
@@ -40,10 +37,6 @@ $('document').ready(function() {
     var rect = this.getBoundingClientRect();
     var row = Math.floor((e.clientY - rect.top)/40);
     var column = Math.floor((e.clientX - rect.left)/40);
-    
-    // Creating a temporary game object to manipulate
-    // var goban = game.fetch()[0];
-    // console.log(rules.capture({row: row, column: y, status: turn(goban.moveList)}, goban.position));
     
     // Make sure the space is empty (moves on occupied spaces are not allowed.)
     if (goban.isEmpty(row, column)) {
@@ -59,23 +52,13 @@ $('document').ready(function() {
       goban.groups[turnNum].push(goban.position[row][column]);
       
       // Grabs the spaces adjacent to the stone you just placed. Then for each one it checks if that space is occupied by a stone of the same color. if it it it looks up which group that stone is in, looks up all the stones in that group, adds them to the new group, and deletes the old. 
-      var adjacentSpaces = goban.getAdjacent(goban.position[row][column]);
+      var adjacentSpaces = goban.getAdjacent(row, column);
       for(var i=0; i<adjacentSpaces.length; i++) {
         // If the space is occupied by a stone of the same color
         if(adjacentSpaces[i].status ==  goban.position[row][column].status) {
           // Then grab that stone's group
           var oldGroup = adjacentSpaces[i].group;
           goban.assignGroup(oldGroup, turnNum);
-          // And look up all the other stones in that group
-          // var groupSpaces = goban.groups[oldGroup];
-
-          // for(var j=0; j<groupSpaces.length; j++) {
-          //   // Then for every stone in that group, change (and add) them to the new group
-          //   goban.position[groupSpaces[j].row][groupSpaces[j].column].group = goban.position[row][column].group;
-          //   goban.groups[turnNum].push(goban.position[groupSpaces[j].row][groupSpaces[j].column]);
-          // }
-          // // and remove the old group
-          // delete goban.groups[oldGroup];
         }
       }
       // Finally add the new move to the move list and send the new board to the database.
