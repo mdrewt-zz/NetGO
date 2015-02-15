@@ -23,7 +23,7 @@ $('document').ready(function() {
   
   // Defining the board model that's going to be doing most of the work. (Move all the view stuff into the renderer object? Move definition above document.ready() then load in the canvas?)
   var renderer = new Renderer(document.getElementById("canvas"));
-  var goban = new Board();
+  goban = new Board();
   
   // Actually draw the board onto the canvas at this point
   // renderer.renderBoard();
@@ -38,48 +38,49 @@ $('document').ready(function() {
   renderer.canvas.addEventListener("mousedown", function(e) {
     // Each space is a 40px square so this calculates the coordinates of the space you clicked on
     var rect = this.getBoundingClientRect();
-    var x = Math.floor((e.clientX - rect.left)/40);
-    var y = Math.floor((e.clientY - rect.top)/40);
+    var row = Math.floor((e.clientY - rect.top)/40);
+    var column = Math.floor((e.clientX - rect.left)/40);
     
     // Creating a temporary game object to manipulate
     // var goban = game.fetch()[0];
-    // console.log(rules.capture({row: x, column: y, status: turn(goban.moveList)}, goban.position));
+    // console.log(rules.capture({row: row, column: y, status: turn(goban.moveList)}, goban.position));
     
     // Make sure the space is empty (moves on occupied spaces are not allowed.)
-    if (goban.isEmpty(x, y)) {
+    if (goban.isEmpty(row, column)) {
       // Store the turn number so you only have to do a lookup once.
       var turnNum = goban.moveList.length;
       // Determining whether the stone is white or black. (change turn() to use turnNum?)
-      goban.position[x][y].status = turn(goban.moveList);
+      goban.position[row][column].status = turn(goban.moveList);
       // Each group is identified by the turn it was last updated on
-      goban.position[x][y].group = turnNum;
+      goban.position[row][column].group = turnNum;
       
       // Create a group for the stone you just played and add it to that group.
       goban.groups[turnNum] = [];
-      goban.groups[turnNum].push(goban.position[x][y]);
+      goban.groups[turnNum].push(goban.position[row][column]);
       
       // Grabs the spaces adjacent to the stone you just placed. Then for each one it checks if that space is occupied by a stone of the same color. if it it it looks up which group that stone is in, looks up all the stones in that group, adds them to the new group, and deletes the old. 
-      var adjacentSpaces = rules.getAdjacent(goban.position[x][y]);
+      var adjacentSpaces = goban.getAdjacent(goban.position[row][column]);
       for(var i=0; i<adjacentSpaces.length; i++) {
         // If the space is occupied by a stone of the same color
-        if(goban.position[adjacentSpaces[i].row][adjacentSpaces[i].column].status ==  goban.position[x][y].status) {
+        if(adjacentSpaces[i].status ==  goban.position[row][column].status) {
           // Then grab that stone's group
-          var oldGroup = goban.position[adjacentSpaces[i].row][adjacentSpaces[i].column].group;
+          var oldGroup = adjacentSpaces[i].group;
+          goban.assignGroup(oldGroup, turnNum);
           // And look up all the other stones in that group
-          var groupSpaces = goban.groups[oldGroup];
+          // var groupSpaces = goban.groups[oldGroup];
 
-          for(var j=0; j<groupSpaces.length; j++) {
-            // Then for every stone in that group, change (and add) them to the new group
-            goban.position[groupSpaces[j].row][groupSpaces[j].column].group = goban.position[x][y].group;
-            goban.groups[turnNum].push(goban.position[groupSpaces[j].row][groupSpaces[j].column]);
-          }
-          // and remove the old group
-          delete goban.groups[oldGroup];
+          // for(var j=0; j<groupSpaces.length; j++) {
+          //   // Then for every stone in that group, change (and add) them to the new group
+          //   goban.position[groupSpaces[j].row][groupSpaces[j].column].group = goban.position[row][column].group;
+          //   goban.groups[turnNum].push(goban.position[groupSpaces[j].row][groupSpaces[j].column]);
+          // }
+          // // and remove the old group
+          // delete goban.groups[oldGroup];
         }
       }
       // Finally add the new move to the move list and send the new board to the database.
-      goban.moveList.push(goban.position[x][y]);
-      Games.update(goban._id, {$set: {position: goban.position, moveList: goban.moveList, groups: goban.groups}});
+      goban.moveList.push(goban.position[row][column]);
+      Games.update(goban._id, {$set: goban.toJson()});
     } else {
       console.log("You can't go there.");
     }
