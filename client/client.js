@@ -2,7 +2,7 @@
 Meteor.subscribe("games", function(){});
 
 // Define variables. RuleSet for the getAdjacent method (move into Board object?), 
-var rules = new RuleSet();
+// var rules = new RuleSet();
 var Games = new Meteor.Collection("games");
 var game = Games.find();
 
