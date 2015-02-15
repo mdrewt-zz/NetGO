@@ -3,9 +3,13 @@ Meteor.subscribe("games", function(){});
 var Games = new Meteor.Collection("games");
 var game = Games.find();
 goban = new Board();
+var gobanDep = new Deps.Dependency();
 
 Template.info.helpers({
-  turn: function() { return goban.turn(); }
+  turn: function() { 
+    gobanDep.depend();
+    return goban.turn(); 
+  }
 });
 
 $('document').ready(function() {
@@ -23,6 +27,7 @@ $('document').ready(function() {
     var column = Math.floor((e.clientX - rect.left)/40);
     goban.addMove(row, column);
     Games.update(goban._id, {$set: goban.toJson()});
+    gobanDep.changed();
   });
   
 });
