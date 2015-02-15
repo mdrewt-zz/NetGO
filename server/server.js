@@ -4,7 +4,7 @@ Meteor.startup(function () {
   Games.remove({});
   if (Games.find({}).count() == 0) {
     var game = new Board();
-    Games.insert(game.toJson);
+    Games.insert(game.toJson());
   }
 });
 
