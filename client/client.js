@@ -40,7 +40,7 @@ $('document').ready(function() {
     
     renderer.canvas.addEventListener("mousedown", function(e) {
         var rect = this.getBoundingClientRect();
-        var row = Math.floor((e.clientY - rect.top)/40);
+        var row = 18 - Math.floor((e.clientY - rect.top)/40);
         var column = Math.floor((e.clientX - rect.left)/40);
         goban.addMove(row, column);
         Games.update(goban._id, {$set: goban.toJson()});
