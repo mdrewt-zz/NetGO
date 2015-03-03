@@ -12,7 +12,12 @@
 </body>
 
 <template name="boardView">
-    <canvas id="canvas" width="760" height="760"></canvas>
+    <div class="board-container" width="800", height="800">
+        {{#each rows}}
+            <div class="board-label" width="40" height="40">{{value}}</div>
+        {{/each}}
+        <canvas id="canvas" width="760" height="760"></canvas>
+    </div>
 </template>
 
 <template name="info">

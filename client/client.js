@@ -5,6 +5,16 @@ var game = Games.find();
 goban = new Board();
 var gobanDep = new Deps.Dependency();
 
+Template.boardView.helpers({
+    rows: function() {
+        var rows = [];
+        for(var i=0; i<19; i++) {
+            rows.push({value: 19 - i});
+        }
+        return rows;
+    }
+});
+
 Template.info.helpers({
     turn: function() { 
         gobanDep.depend();
