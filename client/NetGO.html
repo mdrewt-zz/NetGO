@@ -1,20 +1,32 @@
 <head>
-  <title>NetGO</title>
+    <title>NetGO</title>
 </head>
 
 <body>
-  <div id="board">
-    {{> boardView}}
-  </div>
-  <div id="gameInfo">
-    {{> info}}
-  </div>
+    <div id="board">
+        {{> boardView}}
+    </div>
+    <div id="gameInfo">
+        {{> info}}
+    </div>
 </body>
 
 <template name="boardView">
-  <canvas id="canvas" width="760" height="760"></canvas>
+    <div class="board-container">
+        <div class="sidebar">
+            {{#each rows}}
+                <div class="board-label">{{value}}</div>
+            {{/each}}
+        </div>
+        <canvas id="canvas" width="760px" height="760px"></canvas>
+        <div width="760" height= "40">
+            {{#each columns}}
+                <div class="board-label">{{value}}</div>
+            {{/each}}
+        </div>
+    </div>
 </template>
 
 <template name="info">
-  <h1>It is {{turn}}'s turn.</h1>
+    <h1>It is {{turn}}'s turn.</h1>
 </template>

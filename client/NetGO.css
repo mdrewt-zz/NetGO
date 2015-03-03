@@ -1,4 +1,9 @@
 /* CSS declarations go here */
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 #canvas {
   margin: 0px;
   padding: 0px;
@@ -9,9 +14,43 @@
   cursor: pointer;
 }
 
+.board-container {
+  float: left;
+  position: relative;
+  width: 800px;
+  height: 800px;
+}
+
+.sidebar {
+  width: 40px; 
+  height: 800px;
+  float: left;
+  position: relative;
+}
+
+.board-label {
+  width: 30px; 
+  height: 30px;
+  padding-right: 10px;
+  padding-top: 10px;
+  float: left;
+  position: relative;
+  font-size: 20px;
+  text-align: right;
+}
+
 #board {
   float: left;
-  width: 760px;
+  position: relative;
+  width: 800px;
+  height: 800px;
+}
+
+#canvas {
+  float: left;
+  position: relative;
+  /*width: 760px;*/
+  /*height: 760px;*/
 }
 
 #gameInfo {
