@@ -17,8 +17,8 @@
 .board-container {
   float: left;
   position: relative;
-  width: 840px;
-  height: 840px;
+  width: 800px;
+  height: 800px;
 }
 
 .sidebar {
@@ -42,11 +42,18 @@
 #board {
   float: left;
   position: relative;
-  width: 760px;
-  height: 760px;
+  width: 800px;
+  height: 800px;
+}
+
+#canvas {
+  float: left;
+  position: relative;
+  /*width: 760px;*/
+  /*height: 760px;*/
 }
 
 #gameInfo {
-  float: right;
+  float: left;
   width: 300px;
 }

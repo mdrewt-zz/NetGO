@@ -12,6 +12,13 @@ Template.boardView.helpers({
             rows.push({value: 19 - i});
         }
         return rows;
+    },
+    columns: function() {
+        var columns = [];
+        for(var i=0; i<19; i++) {
+            columns.push({value: String.fromCharCode(65 + i)});
+        }
+        return columns;
     }
 });
 
