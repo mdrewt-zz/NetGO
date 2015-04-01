@@ -8,3 +8,11 @@
 // Store the liberties of a group in memory
 
 // Store ALL the things in memory!
+
+
+// load board, then nav, then group, then view, lastly game.
+
+//constants
+// var BLACKVALUE = 1;
+// var WHITEVALUE = -1;
+// var EMPTYVALUE = 0;
